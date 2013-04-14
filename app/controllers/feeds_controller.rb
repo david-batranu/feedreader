@@ -10,6 +10,15 @@ class FeedsController < ApplicationController
     end
   end
 
+  # GET /feeds/1/updatebody
+  def updatebody
+    @feed = Feed.find(params[:id])
+    feed = Feedzirra::Feed.fetch_and_parse(@feed.url)
+
+    #render :text => feed.title
+    render :json => feed.entries
+  end
+
   # GET /feeds/1
   # GET /feeds/1.json
   def show

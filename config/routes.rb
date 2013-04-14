@@ -1,7 +1,12 @@
 Feedreader::Application.routes.draw do
   get "welcome/index"
 
-  resources :feeds
+  resources :feeds do
+    member do
+      get 'updatebody'
+    end
+  end
+
 
 
   # The priority is based upon order of creation:

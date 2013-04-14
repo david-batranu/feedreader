@@ -31,7 +31,11 @@ feeds.listing =
 
       pane = jQuery('<div class="tab-pane">')
       pane.attr('id', o.id)
-      pane.text(o.url)
+      jQuery.ajax(
+        url: '/feeds/' + o.id + '/updatebody'
+        success: (data) ->
+          pane.html(data[1].content)
+      )
       panes.append(pane)
     )
 

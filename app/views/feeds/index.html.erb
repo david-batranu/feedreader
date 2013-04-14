@@ -1,0 +1,43 @@
+<% content_for :dynamic_javascripts do %>
+  <%= javascript_include_tag "feeds.js" %>
+<%end%>
+
+<h1>Listing feeds</h1>
+
+<div class="tabbable tabs-left">
+	<ul class="nav nav-tabs">
+		<li><a href="#1" data-toggle="tab">Test 1</a></li>
+		<li><a href="#2" data-toggle="tab">Test 2</a></li>
+		<li><a href="#3" data-toggle="tab">Test 3</a></li>
+	</ul>
+	<div class="tab-content">
+		<div id="1" class="tab-pane">1</div>
+		<div id="2" class="tab-pane">2</div>
+		<div id="3" class="tab-pane">3</div>
+	</div>
+</div>
+
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Url</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @feeds.each do |feed| %>
+  <tr>
+    <td><%= feed.title %></td>
+    <td><%= feed.url %></td>
+    <td><%= link_to 'Show', feed %></td>
+    <td><%= link_to 'Edit', edit_feed_path(feed) %></td>
+    <td><%= link_to 'Destroy', feed, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Feed', new_feed_path %>

@@ -5,7 +5,35 @@ feeds = version: 1 if !window.feeds
 
 feeds.listing =
   load: () ->
-    console.log('test')
+    self = this
+    self.loadFeeds()
+
+  loadFeeds: () ->
+    self = this
+    jQuery.ajax(
+      url: '/feeds.json'
+      success: (data) ->
+        self.renderFeeds(data)
+    )
+
+  renderFeeds: (data) ->
+    tabs = jQuery('#feeddisplay .nav-tabs')
+    panes = jQuery('#feeddisplay .tab-content')
+    tabs.empty()
+    panes.empty()
+    jQuery.each(data, (i, o) ->
+      console.log(i, o)
+      tab = jQuery('<li><a data-toggle="tab">')
+      a = jQuery('a', tab)
+      a.attr('href', '#' + o.id)
+      a.text(o.title)
+      tabs.append(tab)
+
+      pane = jQuery('<div class="tab-pane">')
+      pane.attr('id', o.id)
+      pane.text(o.url)
+      panes.append(pane)
+    )
 
 
 jQuery(document).ready () ->

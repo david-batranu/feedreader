@@ -34,7 +34,27 @@ feeds.listing =
       jQuery.ajax(
         url: '/feeds/' + o.id + '/updatebody'
         success: (data) ->
-          pane.html(data[1].content)
+          console.log(data)
+          jQuery.each(data, (i, o) ->
+            dl = jQuery('<dl>')
+            dt = jQuery('<dt>')
+            dt.text(o.title)
+            date = jQuery('<small class="pull-right muted">')
+            date.text(o.published)
+            dt.append(date)
+            dd = jQuery('<dd>')
+            dd.hide()
+            if o.content
+              dd.html(o.content)
+            else
+              dd.text('No feed data!')
+            dt.on('click', () ->
+              jQuery(this).next().toggle()
+            )
+            dl.append(dt)
+            dl.append(dd)
+            pane.append(dl)
+          )
       )
       panes.append(pane)
     )

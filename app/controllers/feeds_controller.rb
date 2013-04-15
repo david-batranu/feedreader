@@ -16,7 +16,7 @@ class FeedsController < ApplicationController
     feed = Feedzirra::Feed.fetch_and_parse(@feed.url)
 
     #render :text => feed.title
-    render :json => feed.entries
+    render :json => feed
   end
 
   # GET /feeds/1

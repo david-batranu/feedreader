@@ -35,7 +35,7 @@ feeds.listing =
         url: '/feeds/' + o.id + '/updatebody'
         success: (data) ->
           console.log(data)
-          jQuery.each(data, (i, o) ->
+          jQuery.each(data.entries, (i, o) ->
             dl = jQuery('<dl>')
             dt = jQuery('<dt>')
             dt.text(o.title)
@@ -44,10 +44,12 @@ feeds.listing =
             dt.append(date)
             dd = jQuery('<dd>')
             dd.hide()
-            if o.content
-              dd.html(o.content)
-            else
-              dd.text('No feed data!')
+            p = jQuery('<p>')
+            p.html(o.summary)
+            div = jQuery('<div>')
+            div.html(o.content)
+            dd.append(p)
+            dd.append(div)
             dt.on('click', () ->
               jQuery(this).next().toggle()
             )
